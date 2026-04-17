@@ -730,6 +730,69 @@ td.highlight{color:var(--accent);font-weight:600}
   <div class="section-title">コンテキスト設計と仕様駆動開発</div>
   <p class="section-lead">GitHub Copilotの出力品質は渡す文脈で決まります。プロンプトの小手先テクニックではなく、AIに渡す情報の設計こそが生産性を分けるという話から始め、仕様を先に書いてAIに実装させる順番を体験します。</p>
 
+  <!-- ハンズオン共通ルール -->
+  <div class="topic" id="handson-rules">
+    <div class="topic-title"><span>準備</span> ハンズオン共通ルール — 「どこに何を作るか」を最初に揃える</div>
+    <p style="font-size:.9rem;color:var(--gray-700);margin-bottom:16px">ここから先のTRY IT / HANDS-ONで迷わないよう、<strong>ファイルの置き場所と作り方</strong>を先に固定します。以降のステップで「新規ファイルを作る」「memo.md に書く」と出てきたら、このルールに従ってください。</p>
+
+    <div class="card-grid">
+      <div class="card is-accent">
+        <div class="card-label">ルール 1</div>
+        <h4>作業フォルダ = 配布フォルダ <code>受講者配布/</code></h4>
+        <p>VS Code で「フォルダーを開く」から <code>受講者配布/</code> を開き、<strong>常にこれをプロジェクトルート</strong>として扱います。成果物・メモ・比較ファイルは全て、このフォルダ直下（またはその配下の所定サブフォルダ）に作ります。</p>
+      </div>
+      <div class="card is-accent">
+        <div class="card-label">ルール 2</div>
+        <h4>考え・予想・気づきは <code>memo.md</code> に書く</h4>
+        <p>各TRY ITの「考える（Step 1）」や「気づきを1行」では、プロジェクトルートの <code>memo.md</code> に追記します。未作成なら最初に作ります。体験ごとに見出し（<code>## TRY IT 01</code> など）を切って書き足すだけでOK。</p>
+      </div>
+      <div class="card is-accent">
+        <div class="card-label">ルール 3</div>
+        <h4>AIへのプロンプトは Copilot Chat に直接入力</h4>
+        <p>プロンプト（AIへの指示文）はファイル保存せず、Copilot Chat（<code>Ctrl+Shift+I</code> / <code>Cmd+Shift+I</code>）に直接入力して実行します。比較したいプロンプトだけ <code>memo.md</code> にコピペで記録します。</p>
+      </div>
+      <div class="card is-accent">
+        <div class="card-label">ルール 4</div>
+        <h4>新規ファイルの作り方</h4>
+        <p>VS Code エクスプローラーで<strong>プロジェクトルートを右クリック → 「新しいファイル」</strong> → ファイル名を入力（例: <code>memo.md</code>、<code>practice.py</code>）。サブフォルダを切りたいときは「新しいフォルダー」を先に作成。ターミナル派は <code>touch memo.md</code> でも可。</p>
+      </div>
+    </div>
+
+    <h4 style="font-size:1rem;font-weight:700;margin:24px 0 8px;color:var(--accent-dark)">成果物のファイル名 早見表</h4>
+    <p style="font-size:.85rem;color:var(--gray-700);margin-bottom:10px">ハンズオンを通じて作るファイルを先にまとめておきます。場所はすべて<strong>プロジェクトルート直下</strong>（<code>.github/</code> と <code>.kiro/</code> の配下は例外）。</p>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th>ファイル名</th><th>拡張子</th><th>作るタイミング</th><th>用途</th></tr>
+      <tr><td><code>memo.md</code></td><td>.md</td><td>TRY IT 01 開始時</td><td>全ての考え・予想・気づきを追記する「思考メモ」</td></tr>
+      <tr><td><code>practice.py</code></td><td>.py</td><td>TRY IT 03</td><td>コメントドリブン + インラインチャット体験用</td></tr>
+      <tr><td><code>spec.md</code></td><td>.md</td><td>HANDS-ON 前半</td><td>議事メモから起こす1枚ものの仕様書</td></tr>
+      <tr><td><code>.kiro/specs/sales_analysis_tool/</code></td><td>フォルダ</td><td>HANDS-ON 後半（任意）</td><td>Kiro方式3点分割（requirements / design / tasks.md）</td></tr>
+      <tr><td><code>_compare_no_agentmd.py</code></td><td>.py</td><td>TRY IT 04</td><td>Agent MDなしの出力を保存</td></tr>
+      <tr><td><code>.github/copilot-instructions.md</code></td><td>.md</td><td>Session 03 HANDS-ON</td><td>自チーム用 Agent MD</td></tr>
+      <tr><td><code>_compare_with_agentmd.py</code></td><td>.py</td><td>Session 03 HANDS-ON</td><td>Agent MDありの出力を保存</td></tr>
+      <tr><td><code>_compare_vibe.py</code></td><td>.py</td><td>TRY IT 06</td><td>バイブコーディング版の出力</td></tr>
+      <tr><td><code>analyze.py</code></td><td>.py</td><td>TRY IT 06 / 発展</td><td>仕様駆動版の出力。発展ハンズオンで実行する</td></tr>
+    </table>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Copilot の出力をファイルに保存する標準手順</div>
+      <p>各ステップで「出力を <code>ファイル名.py</code> として保存」と出てきたら、以下の流れで進めます。</p>
+      <p style="margin-top:8px">
+        1. Copilot Chat の回答の<strong>コードブロック右上</strong>のコピーアイコンをクリック<br>
+        2. VS Code エクスプローラーでプロジェクトルートを右クリック → 「新しいファイル」<br>
+        3. ファイル名（例: <code>_compare_no_agentmd.py</code>）を入力して Enter<br>
+        4. 開いたエディタに貼り付け（<code>Ctrl+V</code> / <code>Cmd+V</code>）<br>
+        5. 保存（<code>Ctrl+S</code> / <code>Cmd+S</code>）
+      </p>
+    </div>
+
+    <div class="callout callout-warn">
+      <div class="callout-title">つまずいたときの最優先確認</div>
+      <p>「あれ、ファイルができない / 動かない」と感じたら、まず<strong>VS Codeの左上の「エクスプローラー」トップの表記</strong>で「<code>受講者配布</code> が開いているか」を確認してください。ここがズレているとファイル作成位置もAgent MDもCopilot Chatの文脈も全部ずれます。迷ったらまずこの確認が最短です。</p>
+    </div>
+  </div>
+
   <!-- コンテキストエンジニアリング -->
   <div class="topic">
     <div class="topic-title"><span>01</span> コンテキストエンジニアリングとは</div>
@@ -767,6 +830,7 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-body">
         <strong>考える（1分）</strong>
         <p>Copilot Chat にいきなり「議事メモからユーザーストーリーを抽出して」とだけ指示すると、Copilot は何を根拠にユーザーストーリーを返すと思いますか。予想してから手を動かします。</p>
+        <p style="margin-top:8px;font-size:.82rem;color:var(--gray-500)">▸ 予想は <code>memo.md</code> の <code>## TRY IT 01</code> 見出し下に1行書いてください。<code>memo.md</code> が未作成なら、プロジェクトルート（<code>受講者配布/</code>）を右クリック → 「新しいファイル」 → <code>memo.md</code> で作成。以降のTRY ITでも同じファイルに追記していきます（作成手順の詳細は冒頭の「ハンズオン共通ルール」参照）。</p>
       </div>
     </div>
 
@@ -774,7 +838,7 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-num">2</div>
       <div class="handson-step-body">
         <strong>書く・実行 : 文脈なしで試す（2分）</strong>
-        <p>Copilot Chat（Ctrl+Shift+I / Cmd+Shift+I）を開き、以下をそのまま貼り付けてください。<code>#file:</code> などでファイルを明示することはしません。</p>
+        <p>Copilot Chat（<code>Ctrl+Shift+I</code> / <code>Cmd+Shift+I</code>）を開き、以下をそのまま貼り付けて送信してください。Chat に直接打ち込むだけでOK、ファイルには保存しません。<code>#file:</code> などでファイルを明示することもしません。</p>
       </div>
     </div>
     <div class="code-block" style="white-space:pre;line-height:1.6">議事メモからユーザーストーリーを抽出してください</div>
@@ -795,7 +859,7 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-num">3</div>
       <div class="handson-step-body">
         <strong>自分で文脈を足してみる（3分）</strong>
-        <p>新しい Copilot Chat を開き、今度は「Copilot が見るべきファイルを<strong>明示的に</strong>指定する」ために何をどう書けばいいか、自分で考えて書いてください。先に <code>docs/議事メモ_データ分析案件.md</code> を目で読んで、どこをどう伝えたらいいか決めてから。ファイル指定の書き方がわからなくても、自分なりの1回目を出してから次へ進んでください。</p>
+        <p>先に <code>docs/議事メモ_データ分析案件.md</code> をVS Codeエクスプローラーから開いて目で読んでください（左サイドバーで <code>docs</code> を展開 → ファイル名クリック）。そのうえで、Copilot が見るべきファイルを<strong>明示的に</strong>指定するプロンプトを<strong>自分で考えて</strong>書き、新しい Copilot Chat で送信します。書き方がわからなくても、自分なりの1回目を出してから次へ進んでください。</p>
       </div>
     </div>
     <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">出力を Step 2 の結果と比べてください。AIが読みに行ったファイルの曖昧さが消えたか、出力の再現性が上がったかを観察します。</p>
@@ -804,7 +868,8 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-num">4</div>
       <div class="handson-step-body">
         <strong>答え合わせと比較（4分）</strong>
-        <p>自分のプロンプトと出力が手元に揃ったら、配布ファイルの <code>hints/step01_context_hint.md</code> を開いてください。参考プロンプトと比較観点が書いてあります。</p>
+        <p>自分のプロンプトと Step 2 / Step 3 の出力が手元に揃ったら、配布ファイルの <code>hints/step01_context_hint.md</code> を開いてください（エクスプローラーで <code>hints</code> → <code>step01_context_hint.md</code> を開く）。参考プロンプトと比較観点が書いてあります。</p>
+        <p style="margin-top:8px;font-size:.82rem;color:var(--gray-500)">▸ 気づきを1行、<code>memo.md</code> の <code>## TRY IT 01</code> 見出し下に追記してください。</p>
       </div>
     </div>
 
@@ -862,6 +927,7 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-body">
         <strong>考える（1分）</strong>
         <p>メモに書いてない要件を AI が補完する挙動には、どんなものがあるでしょうか。3つ予想してください（例: 認証、ログ、通知、ダッシュボード、多言語、バリデーション、スケジューラ、監視…）。</p>
+        <p style="margin-top:8px;font-size:.82rem;color:var(--gray-500)">▸ <code>memo.md</code> に <code>## TRY IT 02</code> 見出しを追加し、その下に予想3つを箇条書きで記入。</p>
       </div>
     </div>
 
@@ -869,7 +935,7 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-num">2</div>
       <div class="handson-step-body">
         <strong>書く・実行 : 制約なし版（2分）</strong>
-        <p>新しい Copilot Chat に以下を貼り付けて実行。制約を一切付けずに依頼します。</p>
+        <p>新しい Copilot Chat を開き、以下をそのまま貼り付けて送信。制約を一切付けずに依頼します。出力はファイル保存せず、Chat 画面で読むだけで構いません。</p>
       </div>
     </div>
     <div class="code-block" style="white-space:pre;line-height:1.6">以下の議事メモから、開発すべき機能の要件を整理してください。
@@ -894,14 +960,15 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-num">3</div>
       <div class="handson-step-body">
         <strong>自分で制約を足してみる（2分）</strong>
-        <p>Step 2 で B・C 寄りの出力が混ざっていたとします。AIの補完を<strong>自分の意図どおりに抑える</strong>には、プロンプトにどう1行足しますか。自分の言葉で1〜3行の制約を追加し、新しいチャットで同じメモを渡して実行してください。参考解は次のステップまで開かない。</p>
+        <p>Step 2 で B・C 寄りの出力が混ざっていたとします。AIの補完を<strong>自分の意図どおりに抑える</strong>には、プロンプトにどう1行足しますか。自分の言葉で1〜3行の制約を追加し、新しい Copilot Chat で同じメモを渡して送信してください。参考解は次のステップまで開かない。</p>
+        <p style="margin-top:8px;font-size:.82rem;color:var(--gray-500)">▸ 自分で考えた制約文を <code>memo.md</code> の <code>## TRY IT 02</code> 見出し下に追記しておくと、後で比較しやすいです。</p>
       </div>
     </div>
 
     <div class="handson-step">
       <div class="handson-step-num">4</div>
       <div class="handson-step-body">
-        <strong>答え合わせと比較（3分</strong>
+        <strong>答え合わせと比較（3分）</strong>
         <p>自分で制約を書いた版と、制約なし版が手元に揃ったら、<code>hints/step02_constraint_hint.md</code> を開いてください。参考プロンプトと比較観点、「制約は短く決定的な1行が強い」という実務の勘所があります。</p>
       </div>
     </div>
@@ -931,6 +998,7 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-body">
         <strong>考える（2分）</strong>
         <p>Copilot は直前の情報を読んで次のコードを提案します。では、関数名だけ書くのと、コメントで仕様を書くのと、型ヒントを付けるのでは、どれが一番効くでしょうか。<strong>優先順位を予想</strong>してから次へ。</p>
+        <p style="margin-top:8px;font-size:.82rem;color:var(--gray-500)">▸ 予想順を <code>memo.md</code> の <code>## TRY IT 03</code> 見出し下に書いてください。</p>
       </div>
     </div>
 
@@ -938,7 +1006,8 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-num">2</div>
       <div class="handson-step-body">
         <strong>書く（3分）</strong>
-        <p>VS Code で <code>practice.py</code> を新規作成し、以下を貼り付けてください。ここまではテンプレ。<code>def</code> 行末にカーソルを置いて Enter。灰色のサジェストが出たら Tab で受け入れます。</p>
+        <p>プロジェクトルート（<code>受講者配布/</code>）に <code>practice.py</code> を新規作成します。VS Codeエクスプローラーで<strong>ルートを右クリック → 「新しいファイル」 → <code>practice.py</code></strong> と入力して Enter。開いたエディタに以下を貼り付けて保存（<code>Ctrl+S</code> / <code>Cmd+S</code>）。</p>
+        <p style="margin-top:8px"><code>def</code> 行末にカーソルを置いて Enter。灰色のサジェストが出たら Tab で受け入れます。</p>
       </div>
     </div>
     <div class="code-block" style="white-space:pre;line-height:1.6"><span class="kw">import</span> pandas <span class="kw">as</span> pd
@@ -1015,6 +1084,7 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-body">
         <strong>考える（3分）</strong>
         <p><code>docs/議事メモ_データ分析案件.md</code> を通読してください。そのうえで、「もし自分が佐藤さん（開発担当）で、このメモから <code>spec.md</code> を書くなら、どういう見出しを置くか」を<strong>3〜5個、自分で書き出してください</strong>。機能一覧、データ構造、処理フロー…あなたの感覚で。</p>
+        <p style="margin-top:8px;font-size:.82rem;color:var(--gray-500)">▸ 書き出す先は <code>memo.md</code> の <code>## HANDS-ON 前半 : 見出しリスト案</code> 見出し下。箇条書き3〜5個でOK。</p>
       </div>
     </div>
 
@@ -1022,8 +1092,8 @@ td.highlight{color:var(--accent);font-weight:600}
       <div class="handson-step-num">2</div>
       <div class="handson-step-body">
         <strong>書く・実行（7分）</strong>
-        <p>Copilot Chat に対し、<strong>自分の言葉で</strong>「議事メモから spec.md を作って」と依頼してください。自分で書いた見出しリストも一緒に渡すと方向が揃います。TRY IT 02 で学んだ制約指示（「書かれていない要件は追加しない」）も忘れずに。</p>
-        <p>出力を <code>spec.md</code> としてプロジェクトルートに保存します。</p>
+        <p>Copilot Chat に対し、<strong>自分の言葉で</strong>「議事メモから spec.md を作って」と依頼してください。自分で書いた見出しリストも一緒にプロンプトへコピペして渡すと方向が揃います。TRY IT 02 で学んだ制約指示（「書かれていない要件は追加しない」）も忘れずに。</p>
+        <p style="margin-top:8px">Copilot の回答を<strong>プロジェクトルートに <code>spec.md</code> として保存</strong>します。手順: コードブロックの「コピー」ボタン → エクスプローラーでルート右クリック → 「新しいファイル」 → <code>spec.md</code> と入力 → 開いたエディタに貼り付け → <code>Ctrl+S</code> で保存。</p>
       </div>
     </div>
     <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">保存したら中身を読み、議事メモに書いてないことが入っていないか、見出しで構造化されているか、「機能」と「データ構造」と「出力仕様」が分離されているかを確認してください。</p>
@@ -1289,6 +1359,7 @@ project-root/
         <div class="handson-step-body">
           <strong>考える（1分）</strong>
           <p><code>.github/copilot-instructions.md</code> を置くと、Copilot の出力が変わると言われます。具体的にどう変わるか、<strong>3つ予想</strong>してください（型ヒント、docstring、変数名、例外処理、デバッグ出力、ファイルパスの書き方…）。</p>
+          <p style="margin-top:8px;font-size:.82rem;color:var(--gray-500)">▸ <code>memo.md</code> の <code>## TRY IT 04 : Agent MDなし版の予想</code> 見出し下に3点を箇条書きで書く。HANDS-ON 完了後に照らし合わせます。</p>
         </div>
       </div>
 
@@ -1296,11 +1367,12 @@ project-root/
         <div class="handson-step-num">2</div>
         <div class="handson-step-body">
           <strong>書く・実行 : Agent MD なしで出力する（3分）</strong>
-          <p>今の時点ではまだ <code>.github/copilot-instructions.md</code> は作っていないはず（この後の HANDS-ON で作る）。つまりこれが「なし」の状態です。新しい Copilot Chat に以下を貼り付け、出力を <code>_compare_no_agentmd.py</code> として保存してください。</p>
+          <p>今の時点ではまだ <code>.github/copilot-instructions.md</code> は作っていないはず（この後の HANDS-ON で作る）。つまりこれが「なし」の状態です。新しい Copilot Chat に以下を貼り付けて送信。</p>
         </div>
       </div>
       <div class="code-block" style="white-space:pre;line-height:1.6">CSVファイルを読み込んで、部門ごとの売上合計を集計する関数を書いて</div>
-      <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">観察ポイント（全部メモ）: 型ヒントは付いているか / docstring のスタイル / 変数名は英語か日本語か / 例外処理は具体型か <code>except Exception</code> か / <code>print()</code> デバッグが入っているか / ファイルパスは文字列結合か <code>pathlib.Path</code> か。</p>
+      <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">出力された Python コードを、<strong>プロジェクトルートに <code>_compare_no_agentmd.py</code> として保存</strong>してください。手順: 回答のコードブロック右上「コピー」 → エクスプローラーでルート右クリック → 「新しいファイル」 → <code>_compare_no_agentmd.py</code> → 貼り付け → <code>Ctrl+S</code>。ファイル名のアンダースコアとスペルは正確に（HANDS-ON 後の比較で同名パターンを使います）。</p>
+      <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">観察ポイント: 型ヒントは付いているか / docstring のスタイル / 変数名は英語か日本語か / 例外処理は具体型か <code>except Exception</code> か / <code>print()</code> デバッグが入っているか / ファイルパスは文字列結合か <code>pathlib.Path</code> か。気になる点は <code>memo.md</code> に追記。</p>
 
       <div class="handson-step">
         <div class="handson-step-num">3</div>
@@ -1350,6 +1422,7 @@ project-root/
       <div class="handson-step-body">
         <strong>考える（1分）</strong>
         <p>Copilot Chat（サイドパネル）とインラインチャット（Ctrl+I）の違いは何でしょうか。「今見ているコードに対する操作」と「プロジェクト全体への質問」の違い、と言われます。では、関数1つにエラーハンドリングを足す作業には<strong>どちらが向いている</strong>と予想しますか。</p>
+        <p style="margin-top:8px;font-size:.82rem;color:var(--gray-500)">▸ 予想を <code>memo.md</code> の <code>## TRY IT 05</code> 見出し下に1行。</p>
       </div>
     </div>
 
@@ -1357,7 +1430,7 @@ project-root/
       <div class="handson-step-num">2</div>
       <div class="handson-step-body">
         <strong>書く・実行（4分）</strong>
-        <p><code>practice.py</code> の関数全体を選択して、以下を順に試してください。各回で、Copilot Chat ではなく<strong>インラインチャット（Ctrl+I / Cmd+I）</strong>を使います。</p>
+        <p>TRY IT 03 で作った <code>practice.py</code> をエクスプローラーから開き、関数全体を選択します（関数の1行目から最後の行までドラッグ、または <code>Ctrl+A</code> で全選択）。選択した状態で、以下を順に<strong>インラインチャット（<code>Ctrl+I</code> / <code>Cmd+I</code>）</strong>で試してください（Copilot Chat は使いません）。</p>
         <ul style="font-size:.88rem;color:var(--gray-700);margin:8px 0 0;padding-left:1.2em">
           <li>「この関数を日本語で説明して」</li>
           <li>「エラーハンドリングを追加して。FileNotFoundError をキャッチして日本語でメッセージを出す」</li>
@@ -1397,7 +1470,7 @@ project-root/
       <div class="handson-step-num">1</div>
       <div class="handson-step-body">
         <strong>考える（5分）</strong>
-        <p><code>templates/copilot-instructions.md</code> を開いてください。4カテゴリ（コーディング規約、推奨パターン、禁止事項、出力フォーマット）の骨組みが入っています。</p>
+        <p><code>templates/copilot-instructions.md</code> をエクスプローラーから開いてください（<code>templates</code> フォルダ → ファイル名クリック）。4カテゴリ（コーディング規約、推奨パターン、禁止事項、出力フォーマット）の骨組みが入っています。</p>
         <p style="margin-top:8px">読んだうえで、次を自分で整理してください。<strong>テンプレの内容は一旦忘れる</strong>のがコツ。</p>
         <ul style="font-size:.88rem;color:var(--gray-700);margin:8px 0 0;padding-left:1.2em">
           <li>自チームで本当に使っている Python バージョンと主要ライブラリ</li>
@@ -1405,7 +1478,7 @@ project-root/
           <li>「これだけは絶対やめてほしい」禁止事項を3つ</li>
           <li>出力するファイルやログの形式に関するルール</li>
         </ul>
-        <p style="margin-top:8px">紙でもテキストでも構いません。これがあなたの Agent MD の原案になります。</p>
+        <p style="margin-top:8px;font-size:.82rem;color:var(--gray-500)">▸ 整理先は <code>memo.md</code> の <code>## HANDS-ON Agent MD : チーム原案</code> 見出し下。この原案が Step 2 の下書きになります。</p>
       </div>
     </div>
 
@@ -1413,7 +1486,8 @@ project-root/
       <div class="handson-step-num">2</div>
       <div class="handson-step-body">
         <strong>書く（10分）</strong>
-        <p><code>.github/</code> フォルダを作り、テンプレートをコピーして<strong>自分の原案</strong>で編集します。</p>
+        <p>プロジェクトルート直下に <code>.github/</code> フォルダを作り、その中に <code>copilot-instructions.md</code> を配置します。作り方はターミナル派とGUI派の2通り、好きな方でOK。</p>
+        <p style="margin-top:8px"><strong>ターミナル派:</strong> VS Code のメニュー「ターミナル」→「新しいターミナル」を開き、以下を実行。</p>
       </div>
     </div>
     <div class="code-block" style="white-space:pre;line-height:1.6"><span class="comment"># Windows の場合</span>
@@ -1423,7 +1497,8 @@ copy templates\copilot-instructions.md .github\copilot-instructions.md
 <span class="comment"># Mac/Linux の場合</span>
 mkdir -p .github
 cp templates/copilot-instructions.md .github/copilot-instructions.md</div>
-    <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px"><code>.github/copilot-instructions.md</code> を開いて、テンプレートの各項目を<strong>あなたのチームの現実</strong>に書き換えてください。テンプレそのまま残すより、1行でもチーム用に直した行があるかが重要です。</p>
+    <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px"><strong>GUI派:</strong> エクスプローラーでルートを右クリック → 「新しいフォルダー」 → <code>.github</code> と入力（先頭のドットも忘れずに）。続けて <code>.github</code> を右クリック → 「新しいファイル」 → <code>copilot-instructions.md</code>。テンプレート <code>templates/copilot-instructions.md</code> を開いて中身を全選択コピーし、新しい <code>.github/copilot-instructions.md</code> に貼り付け。</p>
+    <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">どちらの方法でも、作成後に <code>.github/copilot-instructions.md</code> を開き、テンプレートの各項目を<strong>あなたのチームの現実</strong>に書き換えてください。Step 1 で整理した原案を参照しながら。テンプレそのまま残すより、1行でもチーム用に直した行があるかが重要です。</p>
     <div class="callout">
       <div class="callout-title">ヒント : 残した理由を書くと強い</div>
       <p>「ここはテンプレそのままで OK」と判断した項目も、その判断を「なぜ残したか」1行コメントで書いておくと、後でチーム共有するときに強い武器になります。</p>
@@ -1433,11 +1508,11 @@ cp templates/copilot-instructions.md .github/copilot-instructions.md</div>
       <div class="handson-step-num">3</div>
       <div class="handson-step-body">
         <strong>実行 : あり版の出力を取る（5分）</strong>
-        <p>新しい Copilot Chat を開いて（既存チャットでは反映されません）、<strong>TRY IT 04 と全く同じプロンプト</strong>を投げてください。</p>
+        <p>新しい Copilot Chat を開いて（既存チャットでは反映されません）、<strong>TRY IT 04 と全く同じプロンプト</strong>を送信してください。</p>
       </div>
     </div>
     <div class="code-block" style="white-space:pre;line-height:1.6">CSVファイルを読み込んで、部門ごとの売上合計を集計する関数を書いて</div>
-    <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">出力を <code>_compare_with_agentmd.py</code> として保存してください。</p>
+    <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">出力された Python コードを、<strong>プロジェクトルートに <code>_compare_with_agentmd.py</code> として保存</strong>してください（手順は TRY IT 04 と同じ流れ: コピー → 新しいファイル → 貼り付け → 保存）。TRY IT 04 で作った <code>_compare_no_agentmd.py</code> と並んでルート直下に2ファイルある状態になります。</p>
 
     <div class="callout callout-warn">
       <div class="callout-title">Agent MDが反映されない場合</div>
@@ -1548,6 +1623,7 @@ git commit -m "自チーム用Agent MDを追加"</div>
         <div class="handson-step-body">
           <strong>考える（1分）</strong>
           <p>「AI にコード書かせるんだから、曖昧に頼んでも雰囲気で出してくれるじゃん」と言う人はまだ多い。これをバイブコーディングと呼びます。対して今日やったのが仕様駆動開発。同じ目的を達成する場合、この2つで出力はどれだけ違うでしょうか。<strong>予想</strong>してから次へ。</p>
+          <p style="margin-top:8px;font-size:.82rem;color:var(--gray-500)">▸ 予想を <code>memo.md</code> の <code>## TRY IT 06</code> 見出し下に1行。</p>
         </div>
       </div>
 
@@ -1555,11 +1631,11 @@ git commit -m "自チーム用Agent MDを追加"</div>
         <div class="handson-step-num">2</div>
         <div class="handson-step-body">
           <strong>書く・実行 : バイブコーディング版（2分）</strong>
-          <p>新しい Copilot Chat を開き、雰囲気で依頼します。</p>
+          <p>新しい Copilot Chat を開き、以下をそのまま送信します。</p>
         </div>
       </div>
       <div class="code-block" style="white-space:pre;line-height:1.6">売上データをいい感じに分析して可視化するPythonスクリプト作って</div>
-      <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">出力コードを <code>_compare_vibe.py</code> として保存。モデルによっては手元の環境で動くコードが出てくることもありますが、重要なのは<strong>「同じ指示で、何度やっても同じ結果になる保証がない」</strong>こと。以下の観点で、再現性・チーム共有のしやすさに焦点を当てて読んでください。</p>
+      <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">出力された Python コードを、<strong>プロジェクトルートに <code>_compare_vibe.py</code> として保存</strong>してください（コピー → 新しいファイル → 貼り付け → 保存）。モデルによっては手元の環境で動くコードが出てくることもありますが、重要なのは<strong>「同じ指示で、何度やっても同じ結果になる保証がない」</strong>こと。以下の観点で、再現性・チーム共有のしやすさに焦点を当てて読んでください。</p>
       <ul style="font-size:.88rem;color:var(--gray-700);margin-bottom:16px;padding-left:1.2em">
         <li>何のデータを前提にしているか、コード内に明示されているか</li>
         <li>出力先・ファイル名・文字コードは決まっているか</li>
@@ -1571,7 +1647,7 @@ git commit -m "自チーム用Agent MDを追加"</div>
         <div class="handson-step-num">3</div>
         <div class="handson-step-body">
           <strong>書く・実行 : 仕様駆動版（3分）</strong>
-          <p>新しい Copilot Chat で、仕様書と Agent MD を文脈として渡します。</p>
+          <p>新しい Copilot Chat で、仕様書と Agent MD を文脈として渡します。以下をそのまま送信。</p>
         </div>
       </div>
       <div class="code-block" style="white-space:pre;line-height:1.6">#file:spec.md
@@ -1581,7 +1657,7 @@ spec.md の仕様に従って、data/sales_data.csv を読み込み、
 部門別月別売上集計、地域別構成比、売上上位10商品ランキングを出すPythonスクリプトを
 analyze.py として作成してください。
 結果は output/ ディレクトリにCSVで出力してください。</div>
-      <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">出力を <code>analyze.py</code> として保存してください。仕様書と Agent MD を文脈として渡しているので、バイブ版より前提・出力・規約が揃ったコードが返ってくる見込みです。環境によっては一発で動かない場合もありますが、その場合もエラーメッセージをそのまま Copilot に戻せば、仕様に沿った修正が返ってきます（発展ハンズオンで実際にやります）。</p>
+      <p style="font-size:.85rem;color:var(--gray-700);margin:8px 0 16px">出力された Python コードを、<strong>プロジェクトルートに <code>analyze.py</code> として保存</strong>してください（バイブ版と同じ保存手順）。仕様書と Agent MD を文脈として渡しているので、バイブ版より前提・出力・規約が揃ったコードが返ってくる見込みです。環境によっては一発で動かない場合もありますが、その場合もエラーメッセージをそのまま Copilot に戻せば、仕様に沿った修正が返ってきます（発展ハンズオンで実際にやります）。</p>
 
       <div class="handson-step">
         <div class="handson-step-num">4</div>
