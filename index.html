@@ -23,8 +23,22 @@
   --radius:8px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans);color:var(--dark);background:var(--white);line-height:1.7}
-a{color:var(--accent);text-decoration:none}
+body{
+  font-family:var(--font-sans);color:var(--dark);background:var(--white);
+  line-height:1.8;
+  /* 日本語改行制御: 文節単位で折り返し、句読点の直前で切らない */
+  word-break:auto-phrase;
+  line-break:strict;
+  overflow-wrap:break-word;
+  text-wrap:pretty;
+}
+p,li,td,th{
+  word-break:auto-phrase;
+  line-break:strict;
+  overflow-wrap:break-word;
+  text-wrap:pretty;
+}
+a{color:var(--accent);text-decoration:none;word-break:break-all}
 a:hover{text-decoration:underline}
 
 /* ヘッダー */
