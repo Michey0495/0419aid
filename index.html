@@ -720,6 +720,34 @@ td.highlight{color:var(--accent);font-weight:600}
       <p><code>@workspace</code> はリポジトリ全体を文脈に渡すため、トークンを大量に消費します。ファイル数が多い大規模リポジトリでは応答が遅くなったり、文脈が溢れて精度が落ちることがあります。対象ファイルが明確な場合は <code>#file:</code> で個別に指定するほうが確実です。</p>
     </div>
   </div>
+
+  <div class="topic">
+    <div class="topic-title"><span>05</span> Suggestions matching public code について</div>
+    <p style="font-size:.9rem;color:var(--gray-700);margin-bottom:16px">コード生成のハンズオンに入る前に、組織設定として確認しておきたい項目があります。GitHub Copilot の管理画面「Duplicate Detection Filter」にある <strong>Suggestions matching public code</strong> は、Copilot の提案コードが GitHub 上の公開リポジトリと一致した場合に、その提案を表示するかを制御する設定です。本研修環境は <strong>Blocked</strong>（ブロック）で運用されており、一致する提案は自動的に非表示になります。上位管理層・法務部門から「AI を使った開発で後々著作権問題が発生しないように」という要請を受けてブロックしているケースが多く、貴社の現行設定もこの考え方に沿ったものです。</p>
+
+    <div class="tbl-wrap">
+    <table>
+      <tr><th>設定値</th><th>Copilot の挙動</th><th>ライセンス上の位置づけ</th></tr>
+      <tr><td class="highlight">Blocked</td><td>公開コードと約 150 文字以上一致する提案は受講者に届かない</td><td>コピーレフト系（GPL / AGPL 等）の混入リスクを組織側で遮断</td></tr>
+      <tr><td class="highlight">Allow</td><td>一致した提案も表示され、一致箇所と参照元リポジトリの URL が併記される</td><td>提案採用時に開発者がライセンスを個別確認する運用が前提</td></tr>
+    </table>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Blocked を選ぶ理由を上長に説明するとき</div>
+      <p>業務コードに公開リポジトリ由来のコードが混入すると、元コードのライセンス条件（ソース公開義務、帰属表示、改変条件）が自社コードにまで波及します。一度混入すると静的解析だけでは完全に洗い出せず、法務・コンプライアンス観点で後戻りが難しい領域です。組織設定で最初から遮断しておけば、個々の開発者が毎回ライセンス判定をしなくて済むため、運用負荷と事故リスクの両方を下げられます。現在の <strong>Blocked</strong> 設定はこの予防策に沿ったものであり、AI 活用と知的財産保護を両立させる標準的な構成です。</p>
+    </div>
+
+    <div class="callout callout-warn">
+      <div class="callout-title">ハンズオン中に「提案が出ない」と感じたら</div>
+      <p>本研修は Blocked 設定のまま進めます。Copilot の提案が期待より出ない、あるいは候補の一部だけ空白になる場面があれば、このフィルタで抑止されている可能性があります。プロンプト側を見直す手としては、要件を具体化する、<code>#file:</code> で文脈を明示する、自社ドメインの用語を含める、の 3 つが有効です。一般的な実装から離れて自社固有の実装方針に寄せるほど、公開コードとの一致を避けられ、結果的に Blocked 設定とも相性がよくなります。</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">設定場所と適用範囲</div>
+      <p>この設定は GitHub Copilot Business / Enterprise プランの組織管理画面（Settings → Copilot → Policies）で制御します。個人プラン（Copilot Individual）には組織レベルの管理画面はなく、ユーザー個人の Settings から同様の切り替えが可能です。受講者個人の権限では変更できない場合があるため、設定を見直したい場合は組織の GitHub 管理者に相談してください。本研修中に設定変更を行う必要はありません。</p>
+    </div>
+  </div>
 </div>
 
 <!-- ========================================================================== -->
